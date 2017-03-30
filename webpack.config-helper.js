@@ -12,7 +12,8 @@ module.exports = (options) => {
     devtool: options.devtool,
     output: {
       path: Path.join(__dirname, 'dist'),
-      filename: 'bundle.js'
+      filename: 'bundle.js',
+      publicPath: '/build/'
     },
     plugins: [
       new Webpack.DefinePlugin({
@@ -35,7 +36,25 @@ module.exports = (options) => {
       }),
     ],
     module: {
-      loaders: [{
+      rules: [{
+        test: /\.less$/,
+        use: [{
+          loader: "style-loader"
+        }, {
+          loader: "css-loader"
+        }, {
+          loader: "less-loader", options: {
+              strictMath: true,
+              noIeCompat: true
+          }
+        }]
+      }],
+      loaders: [
+        {
+          test: /\.jade$/,
+          loader: "jade-loader?self"
+        },
+        {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
         loader: 'babel',
@@ -48,7 +67,7 @@ module.exports = (options) => {
         loader: 'underscore-template-loader',
       }, {
         test: /\.s?css$/i,
-        loaders: ['style', 'css']
+        loaders: ['style', 'css' ]
       }],
     },
     resolve: {
@@ -60,25 +79,25 @@ module.exports = (options) => {
     }
   };
 
-  if (options.isProduction) {
+  // if (options.isProduction) {
 
-    webpackConfig.plugins.push(
-      new Webpack.optimize.DedupePlugin(),
-      new Webpack.optimize.UglifyJsPlugin({
-        compressor: {screw_ie8: true, keep_fnames: true, warnings: false},
-        mangle: {screw_ie8: true, keep_fnames: true}
-      }),
-      new Webpack.optimize.OccurenceOrderPlugin(),
-      new Webpack.optimize.AggressiveMergingPlugin()
-    );
+  //   webpackConfig.plugins.push(
+  //     new Webpack.optimize.DedupePlugin(),
+  //     new Webpack.optimize.UglifyJsPlugin({
+  //       compressor: {screw_ie8: true, keep_fnames: true, warnings: false},
+  //       mangle: {screw_ie8: true, keep_fnames: true}
+  //     }),
+  //     new Webpack.optimize.OccurenceOrderPlugin(),
+  //     new Webpack.optimize.AggressiveMergingPlugin()
+  //   );
 
-    /*
-    webpackConfig.module.loaders.push({
-      test: /\.scss$/i,
-      loader: ExtractSASS.extract(['css', 'sass'])
-    });*/
+  //   /*
+  //   webpackConfig.module.loaders.push({
+  //     test: /\.scss$/i,
+  //     loader: ExtractSASS.extract(['css', 'sass'])
+  //   });*/
 
-  } else {
+  // } else {
     webpackConfig.plugins.push(
       new Webpack.HotModuleReplacementPlugin(),
       new DashboardPlugin()
@@ -91,14 +110,14 @@ module.exports = (options) => {
       inline: true,
       progress: true
     };
-  }
+  // }
 
   webpackConfig.entry = [];
   if (!options.isProduction) {
     webpackConfig.entry.push(`webpack-dev-server/client?http://localhost:${options.port}`);
     webpackConfig.entry.push('webpack/hot/dev-server');
   }
-  webpackConfig.entry.push('./core/init');
+  webpackConfig.entry.push('./app/init');
 
   return webpackConfig;
 
