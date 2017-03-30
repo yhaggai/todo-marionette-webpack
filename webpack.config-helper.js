@@ -4,7 +4,7 @@ const Path = require('path');
 const Webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 var DashboardPlugin = require('webpack-dashboard/plugin');
-
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = (options) => {
 
@@ -23,7 +23,7 @@ module.exports = (options) => {
         '__ROUTES__': JSON.stringify(ROUTES)
       }),
       new HtmlWebpackPlugin({
-        template: './app/theme/index.html'
+        template: './app/index.html'
       }),
       new Webpack.ProvidePlugin({
         _: 'underscore',
@@ -36,19 +36,6 @@ module.exports = (options) => {
       }),
     ],
     module: {
-      rules: [{
-        test: /\.less$/,
-        use: [{
-          loader: "style-loader"
-        }, {
-          loader: "css-loader"
-        }, {
-          loader: "less-loader", options: {
-              strictMath: true,
-              noIeCompat: true
-          }
-        }]
-      }],
       loaders: [
         {
           test: /\.jade$/,
@@ -66,8 +53,8 @@ module.exports = (options) => {
         test: /\.jst$/,
         loader: 'underscore-template-loader',
       }, {
-        test: /\.s?css$/i,
-        loaders: ['style', 'css' ]
+        test: /\.less$/i,
+        loaders: ["style-loader" , "css-loader","less-loader"]
       }],
     },
     resolve: {

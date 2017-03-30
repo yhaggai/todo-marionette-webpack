@@ -2,11 +2,13 @@ const Marionette = require('backbone.marionette');
 const layoutTemplate = require('./app_layout.jade');
 const Todos = require('./models/todos.js');
 const Todo = require('./models/todo.js');
+const AddTodoBar = require('./views/components/add_todo_bar/add_todo_bar.js');
 const TodoListView = require('./views/components/todo_list/todo_list.js');
 
 class AppLayout extends Marionette.View {
   static initClass() {
     this.prototype.regions = {
+      searchBar: '.search-bar-container',
       todoList: '.todo-list-container'
     };
   }
@@ -23,10 +25,7 @@ class AppLayout extends Marionette.View {
     this.todos.add([new Todo({message: 'hi mark'})])
   }
   onRender() {
-    this.showTodoList(this.todos);
-  }
-
-  showTodoList() {
+    this.showChildView('searchBar', new AddTodoBar());
     this.showChildView('todoList', new TodoListView({ collection: this.todos}));
   }
 }

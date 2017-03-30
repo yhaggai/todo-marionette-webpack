@@ -11,7 +11,6 @@ class TodoListView extends Marionette.CollectionView {
   get className() {
     return 'todo-items';
   }
-
 }
 
 module.exports = TodoListView;
