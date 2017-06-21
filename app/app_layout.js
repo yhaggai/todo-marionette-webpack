@@ -3,7 +3,7 @@ const layoutTemplate = require('./app_layout.jade');
 const Todos = require('./models/todos.js');
 const Todo = require('./models/todo.js');
 const AddTodoBar = require('./views/components/add_todo_bar/add_todo_bar.js');
-const TodoListView = require('./views/components/todo_list/todo_list.js');
+const TodoList = require('./views/components/todo_list/todo_list.js');
 
 class AppLayout extends Marionette.View {
   static initClass() {
@@ -12,10 +12,10 @@ class AppLayout extends Marionette.View {
       todoList: '.todo-list-container'
     };
   }
-  get template() {
+  getTemplate() {
     return layoutTemplate;
   }
-  get className() {
+  className() {
     return 'todo-app';
   }
   initialize() {
@@ -25,8 +25,8 @@ class AppLayout extends Marionette.View {
     this.todos.add([new Todo({message: 'hi mark'})])
   }
   onRender() {
-    this.showChildView('searchBar', new AddTodoBar());
-    this.showChildView('todoList', new TodoListView({ collection: this.todos}));
+    // this.showChildView('searchBar', new AddTodoBar());
+    this.showChildView('todoList', new TodoList({ collection: this.todos}));
   }
 }
 AppLayout.initClass();

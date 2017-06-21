@@ -5,10 +5,10 @@ class TodoListView extends Marionette.CollectionView {
   get childView() {
     return TodoItem;
   }
-  get tagName() {
+  tagName() {
     return 'ul';
   }
-  get className() {
+  className() {
     return 'todo-items';
   }
 }

@@ -2,10 +2,10 @@ const Marionette = require('backbone.marionette');
 const template = require('./add_todo_bar.jade');
 
 class AddTodoBar extends Marionette.View {
-  get template() {
+  getTemplate() {
     return template;
   }
-  get className() {
+  className() {
     return 'add-todo-bar';
   }
 }
