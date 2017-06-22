@@ -1,19 +1,25 @@
 // const _ = require('lodash');
 import { tap, template } from 'lodash';
 const Marionette = require('backbone.marionette');
-const layoutTemplate = require('./app_layout.jade');
+const template = require('./todo_page.jade');
 
 const Todos = require('./models/todos.js');
 const Todo = require('./models/todo.js');
 const AddTodoBar = require('./views/components/add_todo_bar/add_todo_bar.js');
 const TodoList = require('./views/components/todo_list/todo_list.js');
 
-class AppLayout extends Marionette.View {
+class TodoPage extends Marionette.View {
+  regions() {
+    return {
+      searchBar: '.search-bar-container',
+      todoList: '.todo-list-container'
+    };
+  }
   getTemplate() {
-    return layoutTemplate;
+    return template;
   }
   className() {
-    return 'todo-app';
+    return 'todo-page';
   }
   initialize() {
     this.todos = new Todos();
@@ -23,7 +29,7 @@ class AppLayout extends Marionette.View {
   }
   onRender() {
     this.showChildView('searchBar', new AddTodoBar());
-    this.showChildView('todoList', new TodoList({ collection: this.todos}));
+    this.showChildView('todoList', new TodoList({ collection: this.todos }));
   }
 }
-module.exports = AppLayout;
+module.exports = TodoPage;
