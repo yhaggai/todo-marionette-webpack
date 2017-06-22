@@ -16,6 +16,7 @@
 .project
 .settings
 .tmproj
+.tmp
 nbproject
 Thumbs.db
 
@@ -24,5 +25,4 @@ node_modules
 
 # Output folder.
 public/
-
 dist
