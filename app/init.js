@@ -1,4 +1,4 @@
-require ('./styles/application.less');
+require ('./main.less');
 const TodoApp = require('./todo_application.js');
 const $ = require('jquery');
 const todoApp = new TodoApp();

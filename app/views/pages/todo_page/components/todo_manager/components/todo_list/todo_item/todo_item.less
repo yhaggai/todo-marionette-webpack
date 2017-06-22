@@ -1,0 +1,45 @@
+.todo-item {
+  min-height: 40px;
+  align-items: center;
+  display: flex;
+  align-content: center;
+  width: 100%;
+  flex-direction: row;
+  flex-grow: 1;
+  padding: 5px;
+  font-size: 24px;
+  padding: 10px 0;
+  border-bottom: 1px solid #ededed;
+}
+.todo-item--done {
+  .todo-item__value {
+    text-decoration: line-through;
+  }
+}
+.todo-item__checkbox {
+  margin-right: 20px;
+}
+.todo-item__delete {
+  margin-left: auto;
+}
+.todo-item__delete {
+  opacity: 0;
+  margin-left: auto;
+  line-height: 2px;
+  padding-right: 20px;
+  font-size: 30px;
+  color: #cc9a9a;
+  margin-bottom: 11px;
+  transition: opacity 0.2s ease-out;
+  outline: none;
+  border: 0;
+  background: none;
+  vertical-align: baseline;
+  font-smoothing: antialiased;
+  &:after {
+    content: "×";
+  }
+}
+.todo-item:hover .todo-item__delete {
+  opacity: 1;
+}

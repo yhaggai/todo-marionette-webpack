@@ -4,7 +4,7 @@ const AppLayout = require('./app_layout.js');
 
 class TodoApplication extends Marionette.Application {
   get region() {
-    return '.todo-app';
+    return { el: '.todo-app', replaceElement: true };
   }
   onStart() {
     this.showView(new AppLayout());

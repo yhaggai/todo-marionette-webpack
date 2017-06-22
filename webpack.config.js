@@ -1,11 +1,9 @@
-var webpack = require('webpack');
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var extractHtml = new ExtractTextPlugin('[name].html');
-var LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const webpack = require('webpack');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
-const VENDOR_LIBS = ['backbone', 'backbone.marionette', 'jquery'];
+const VENDOR_LIBS = ['backbone', 'backbone.marionette', 'backbone.localstorage', 'jquery'];
 module.exports = {
   stats: {
     assets: false,
@@ -16,13 +14,23 @@ module.exports = {
     chunks: false,
     chunkModules: false
   },
+  resolve: {
+    modules: ['./node_modules', __dirname]
+  },
+  devServer: {
+    hot: true,
+    port: 3001,
+    compress: true,
+    watchContentBase: false,
+    contentBase: path.join(__dirname, 'dist')
+  },
   entry: {
-    bundle: './app/init.js',
+    app: './app/init.js',
     vendor: VENDOR_LIBS
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].[chunkhash].js'
+    filename: '[name].js'
   },
   module: {
     rules: [
@@ -38,22 +46,25 @@ module.exports = {
         }
       },
       {
-        use: ['style-loader', 'css-loader', 'less-loader'],
+        use: ['style-loader', 'css-loader', 'postcss-loader', 'less-loader'],
         test: /\.less$/
       },
       {
         test: /\.((jade)|(pug))$/,
-        // use: ['html-loader','pug-html-loader']
         use: ['pug-loader']
-        // use: ['html-loader','pug-html-loader?pretty&exports=false']
-        // use: extractHtml.extract({
-        //   loader: ['html-loader', 'pug-html-loader?pretty&exports=false']
-        // })
       }
     ]
   },
   plugins: [
-    // extractHtml,
+    require('autoprefixer'),
+    new webpack.SourceMapDevToolPlugin({
+      test: [/\.js$/, /\.jsx$/],
+      exclude: [/^vendor\./],
+      filename: 'app.[hash].js.map',
+      append: '//# sourceMappingURL=[url]',
+      moduleFilenameTemplate: '[resource-path]',
+      fallbackModuleFilenameTemplate: '[resource-path]'
+    }),
     new webpack.optimize.ModuleConcatenationPlugin(),
     new LodashModuleReplacementPlugin(),
     new webpack.DefinePlugin({
@@ -62,9 +73,16 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor']
     }),
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'manifest',
+    //   minChunks: Infinity
+    // }),
     new HtmlWebpackPlugin({
       template: 'app/index.jade',
+      hash: true,
       minify: { collapseWhitespace: true }
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin()
   ]
 };
