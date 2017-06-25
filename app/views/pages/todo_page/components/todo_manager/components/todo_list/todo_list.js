@@ -14,7 +14,6 @@ class TodoListView extends Marionette.CollectionView {
     return 'todo-items';
   }
   onChildItemRemove({ model }) {
-    debugger;
     this.collection.remove(model);
   }
 }

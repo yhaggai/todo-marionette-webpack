@@ -1,6 +1,5 @@
 const Backbone = require('backbone');
 const Todo = require('./todo.js');
-const LocalStorage = require('backbone.localstorage').LocalStorage;
 
 class Todos extends Backbone.Collection {
   get model() {
@@ -11,6 +10,4 @@ class Todos extends Backbone.Collection {
   }
 }
 
-module.exports = Backbone.Collection.extend({
-  localStorage: new LocalStorage('Todos')
-});
+module.exports = Todos;
