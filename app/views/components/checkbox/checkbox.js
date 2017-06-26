@@ -8,6 +8,21 @@ class Checkbox extends Marionette.View {
   className() {
     return 'checkbox';
   }
+  ui() {
+    return { checkbox: 'input' };
+  }
+
+  events() {
+    return {
+      'click @ui.checkbox': 'checkBoxChanged'
+    };
+  }
+  checkBoxChanged() {
+    this.triggerMethod(
+      'checkbox:changed',
+      this.getUI('checkbox').is(':checked')
+    );
+  }
 
   templateContext() {
     return {
