@@ -9,6 +9,23 @@ class TodoItem extends Marionette.View {
   className() {
     return 'todo-item';
   }
+
+  ui() {
+    return {
+      destroyButton: '.todo-item__delete'
+    };
+  }
+
+  // triggers() {
+  //   return {
+  //     'click @ui.destroyButton': 'item:remove'
+  //   };
+  // }
+  events() {
+    return {
+      'click @ui.destroyButton': () => this.model.destroy()
+    };
+  }
 }
 
 module.exports = TodoItem;
