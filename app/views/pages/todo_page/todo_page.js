@@ -15,7 +15,7 @@ class TodoPage extends Marionette.View {
     return 'todo-page';
   }
   onRender() {
-    this.showChildView('todoManager', new TodoManager());
+    this.showChildView('todoManager', new TodoManager({ model: this.model }));
   }
 }
 module.exports = TodoPage;

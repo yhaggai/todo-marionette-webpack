@@ -22,18 +22,13 @@ class TodoManager extends Marionette.View {
     return 'todo-manager';
   }
 
-  initialize() {
-    this.todos = new Todos();
-    this.todos.add({ value: 'himark' });
-  }
-
   onRender() {
     this.showChildView('searchBar', new AddTodoBar());
-    this.showChildView('todoList', new TodoList({ collection: this.todos }));
+    this.showChildView('todoList', new TodoList({ collection: this.model }));
   }
 
   onChildviewTodoInserted(todoValue) {
-    this.todos.add({ value: todoValue });
+    this.model.add({ value: todoValue });
   }
 }
 module.exports = TodoManager;

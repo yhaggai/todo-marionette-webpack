@@ -9,7 +9,15 @@ class TodoItem extends Marionette.View {
 
   ui() {
     return {
-      destroyButton: '.todo-item__delete'
+      destroyButton: '.todo-item__delete',
+      value: '.todo-item__value',
+      editBox: '.todo-item__edit-box'
+    };
+  }
+  events() {
+    return {
+      'dblclick @ui.value': '_switchToEditMode',
+      'focusout @ui.editBox': '_switchToShowMode'
     };
   }
 
@@ -26,7 +34,9 @@ class TodoItem extends Marionette.View {
   }
 
   modelEvents() {
-    return { 'change:done': 'updateDoneState' };
+    return {
+      change: 'render'
+    };
   }
 
   className() {
@@ -34,6 +44,7 @@ class TodoItem extends Marionette.View {
   }
 
   onRender() {
+    this.setDoneState();
     this.showChildView('checkbox', new DoneCheckbox({ model: this.model }));
   }
 
@@ -41,8 +52,20 @@ class TodoItem extends Marionette.View {
     this.model.set({ done: checkState });
   }
 
-  updateDoneState() {
+  setDoneState() {
     this.$el.toggleClass(`${this.className()}--done`, this.model.get('done'));
+  }
+
+  _switchToEditMode() {
+    const editBoxElement = this.getUI('editBox');
+    editBoxElement.val(this.model.get('value'));
+    this.$el.addClass(`${this.className()}--edit`);
+    editBoxElement.focus();
+  }
+  _switchToShowMode() {
+    const newValue = this.getUI('editBox').val();
+    this.model.set({ value: newValue });
+    this.$el.removeClass(`${this.className()}--edit`);
   }
 }
 

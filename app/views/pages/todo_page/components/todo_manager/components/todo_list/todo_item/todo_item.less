@@ -16,12 +16,27 @@
     text-decoration: line-through;
   }
 }
+
+.todo-item--edit {
+  .todo-item__edit-box {
+    display: block;
+  }
+  .todo-item__value {
+    display: none;
+  }  
+}
+
 .todo-item__checkbox {
   margin-right: 20px;
 }
 .todo-item__delete {
   margin-left: auto;
 }
+
+.todo-item__edit-box {
+  display: none;
+}
+
 .todo-item__delete {
   opacity: 0;
   margin-left: auto;
@@ -35,7 +50,6 @@
   border: 0;
   background: none;
   vertical-align: baseline;
-  font-smoothing: antialiased;
   &:after {
     content: "×";
   }

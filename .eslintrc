@@ -14,6 +14,10 @@
     "import/resolver": "webpack"
   },
   "rules": {
+    "linebreak-style": [
+      0,
+      "unix"
+    ],
     "no-use-before-define": "off",
     "max-len": [
       "error",
@@ -51,6 +55,7 @@
           "className",
           "regions",
           "ui",
+          "childViewTriggers",
           "events",
           "triggers",
           "childView",
