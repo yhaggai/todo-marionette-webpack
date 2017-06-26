@@ -10,17 +10,21 @@ class TodoItem extends Marionette.View {
     return 'todo-item';
   }
 
+  regions() {
+    return {
+      doneButton: '.todo-item__checkbox'
+    };
+  }
+
   ui() {
     return {
       destroyButton: '.todo-item__delete'
     };
   }
+  onRender() {
+    this.showChildView('doneButton', new DoneCheckbox({ model: this.model }));
+  }
 
-  // triggers() {
-  //   return {
-  //     'click @ui.destroyButton': 'item:remove'
-  //   };
-  // }
   events() {
     return {
       'click @ui.destroyButton': () => this.model.destroy()
