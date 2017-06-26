@@ -10,6 +10,23 @@ class AddTodoBar extends Marionette.View {
   className() {
     return 'add-todo-bar';
   }
+  ui() {
+    return { textBox: '.add-todo-bar__text-box' };
+  }
+  events() {
+    return {
+      'keydown @ui.textBox': 'onEditKeypress'
+    };
+  }
+  onEditKeypress({ keyCode }) {
+    if (keyCode === ENTER_KEY) {
+      const todoValue = this.getUI('textBox').val().trim();
+      this.getUI('textBox').val('');
+      if (todoValue) {
+        this.trigger('todo:inserted', todoValue);
+      }
+    }
+  }
 }
 
 module.exports = AddTodoBar;

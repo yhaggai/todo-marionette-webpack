@@ -1,6 +1,5 @@
 const Marionette = require('backbone.marionette');
 
-const Todos = require('app/models/todos.js');
 const AddTodoBar = require('./add_todo_bar/add_todo_bar.js');
 const TodoList = require('./todo_list/todo_list.js');
 
@@ -28,6 +27,10 @@ class TodoManager extends Marionette.View {
       'todoList',
       new TodoList({ collection: this.collection })
     );
+  }
+
+  onChildviewTodoInserted(todoValue) {
+    this.collection.add({ value: todoValue }).save();
   }
 }
 module.exports = TodoManager;
