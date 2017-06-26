@@ -9,8 +9,11 @@ class AppLayout extends Marionette.View {
   }
   regions() {
     return {
-      todoPage: { el: '.todo-page' }
+      todoPage: { el: '.todo-page', replaceElement: true }
     };
+  }
+  className() {
+    return 'todo-app';
   }
   onRender() {
     const todos = new Todos();

@@ -29,9 +29,5 @@ class TodoManager extends Marionette.View {
       new TodoList({ collection: this.collection })
     );
   }
-
-  onChildviewTodoInserted(todoValue) {
-    this.model.add({ value: todoValue });
-  }
 }
 module.exports = TodoManager;
