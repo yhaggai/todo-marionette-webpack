@@ -5,7 +5,7 @@ const template = require('./todo_page.jade');
 class TodoPage extends Marionette.View {
   regions() {
     return {
-      todoManager: '.todo_page__todo-manager',
+      todoManager: '.todo_page__todo-manager'
     };
   }
   getTemplate() {
@@ -15,7 +15,10 @@ class TodoPage extends Marionette.View {
     return 'todo-page';
   }
   onRender() {
-    this.showChildView('todoManager', new TodoManager({ model: this.model }));
+    this.showChildView(
+      'todoManager',
+      new TodoManager({ collection: this.collection })
+    );
   }
 }
 module.exports = TodoPage;

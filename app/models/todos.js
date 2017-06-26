@@ -6,11 +6,8 @@ class Todos extends Backbone.Collection {
   get model() {
     return Todo;
   }
-  get comparator() {
-    return 'created';
-  }
 }
 
 module.exports = Todos.extend({
   localStorage: new LocalStorage('Todos')
-});;
+});

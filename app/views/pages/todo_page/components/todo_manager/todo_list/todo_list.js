@@ -6,22 +6,9 @@ class TodoListView extends Marionette.CollectionView {
   get childView() {
     return TodoItem;
   }
-  emptyView() {
-    return TodoListEmpty;
-  }
-  childViewTriggers() {
-    return {
-      'item:remove': 'child:item:remove'
-    };
-  }
 
   className() {
     return 'todo-items';
   }
-
-  onChildItemRemove({ model }) {
-    this.collection.remove(model);
-  }
 }
-
 module.exports = TodoListView;

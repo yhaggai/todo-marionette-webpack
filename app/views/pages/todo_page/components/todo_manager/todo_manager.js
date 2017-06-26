@@ -1,8 +1,8 @@
 const Marionette = require('backbone.marionette');
 
 const Todos = require('app/models/todos.js');
-const AddTodoBar = require('./components/add_todo_bar/add_todo_bar.js');
-const TodoList = require('./components/todo_list/todo_list.js');
+const AddTodoBar = require('./add_todo_bar/add_todo_bar.js');
+const TodoList = require('./todo_list/todo_list.js');
 
 const template = require('./todo_manager.jade');
 
@@ -24,7 +24,10 @@ class TodoManager extends Marionette.View {
 
   onRender() {
     this.showChildView('searchBar', new AddTodoBar());
-    this.showChildView('todoList', new TodoList({ collection: this.model }));
+    this.showChildView(
+      'todoList',
+      new TodoList({ collection: this.collection })
+    );
   }
 
   onChildviewTodoInserted(todoValue) {
