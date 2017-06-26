@@ -3,7 +3,12 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
-const VENDOR_LIBS = ['backbone', 'backbone.marionette', 'backbone.localstorage', 'jquery'];
+const VENDOR_LIBS = [
+  'backbone',
+  'backbone.marionette',
+  'backbone.localstorage',
+  'jquery'
+];
 module.exports = {
   stats: {
     assets: false,
@@ -82,7 +87,6 @@ module.exports = {
       hash: true,
       minify: { collapseWhitespace: true }
     }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin()
+    new webpack.HotModuleReplacementPlugin()
   ]
 };

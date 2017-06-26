@@ -6,7 +6,7 @@ npm install
 ```
 Development workflow:
 ```
-gulp
+gulpp
 ```
 Deploy staging:
 ```

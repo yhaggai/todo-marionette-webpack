@@ -4,11 +4,10 @@ const AppLayout = require('./app_layout.js');
 
 class TodoApplication extends Marionette.Application {
   get region() {
-    return { el: '.todo-app', replaceElement: true };
+    return { el: '.todo-app' };
   }
   onStart() {
     this.showView(new AppLayout());
-    Backbone.history.start();
   }
 }
 module.exports = TodoApplication;
