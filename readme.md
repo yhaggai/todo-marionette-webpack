@@ -1,18 +1,15 @@
-### Jaco Landing Page
+### Marionette + Backbone Todo List
 
-First things first:
+First install yarn for better faster installation
 ```
-npm install
+npm install -g yarn
 ```
-Development workflow:
+Then download the packages:
 ```
-gulpp
+
+yarn install
 ```
-Deploy staging:
+To start working:
 ```
-gulp publish:staging
-```
-Deploy production:
-```
-gulp publish:production
+yarn run serve
 ```
