@@ -1,6 +1,7 @@
 const Marionette = require('backbone.marionette');
 const TodoManager = require('./components/todo_manager/todo_manager.js');
 const template = require('./todo_page.jade');
+const backgrid = require('backgrid');
 
 class TodoPage extends Marionette.View {
   regions() {
@@ -15,10 +16,7 @@ class TodoPage extends Marionette.View {
     return 'todo-page';
   }
   onRender() {
-    this.showChildView(
-      'todoManager',
-      new TodoManager({ collection: this.collection })
-    );
+    this.showChildView('todoManager', new TodoManager({ collection: this.collection }));
   }
 }
 module.exports = TodoPage;
